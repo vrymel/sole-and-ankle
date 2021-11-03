@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { WEIGHTS } from '../../constants';
+import {WEIGHTS} from '../../constants';
 
 import Breadcrumbs from '../Breadcrumbs';
 import Select from '../Select';
@@ -9,7 +9,7 @@ import Spacer from '../Spacer';
 import ShoeSidebar from '../ShoeSidebar';
 import ShoeGrid from '../ShoeGrid';
 
-const ShoeIndex = ({ sortId, setSortId }) => {
+const ShoeIndex = ({sortId, setSortId}) => {
   return (
     <Wrapper>
       <MainColumn>
@@ -24,8 +24,8 @@ const ShoeIndex = ({ sortId, setSortId }) => {
             <option value="price">Price</option>
           </Select>
         </Header>
-        <Spacer size={34} />
-        <ShoeGrid />
+        <Spacer size={34}/>
+        <ShoeGrid/>
       </MainColumn>
       <LeftColumn>
         <Breadcrumbs>
@@ -35,24 +35,35 @@ const ShoeIndex = ({ sortId, setSortId }) => {
             Shoes
           </Breadcrumbs.Crumb>
         </Breadcrumbs>
-        <Spacer size={42} />
-        <ShoeSidebar />
+        <Spacer size={42}/>
+        <ShoeSidebar/>
       </LeftColumn>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
 
-const LeftColumn = styled.div``;
+const LeftColumn = styled.div`
+  flex-basis: 300px;
+`;
 
-const MainColumn = styled.div``;
+const MainColumn = styled.div`
+  flex: 1;
+`;
 
-const Header = styled.header``;
+const Header = styled.header`
+  display: flex;
+  align-items: baseline;
+`;
 
 const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: ${WEIGHTS.medium};
+  margin-right: auto;
 `;
 
 export default ShoeIndex;
