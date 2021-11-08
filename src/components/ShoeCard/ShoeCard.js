@@ -1,19 +1,24 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { COLORS, WEIGHTS } from '../../constants';
-import { formatPrice, pluralize, isNewShoe } from '../../utils';
+import {COLORS, WEIGHTS} from '../../constants';
+import {formatPrice, pluralize, isNewShoe} from '../../utils';
 import Spacer from '../Spacer';
 
+const VARIANT_COLOR = {
+  'Sale': COLORS.primary,
+  'Just released!': COLORS.secondary,
+};
+
 const ShoeCard = ({
-  slug,
-  name,
-  imageSrc,
-  price,
-  salePrice,
-  releaseDate,
-  numOfColors,
-}) => {
+                    slug,
+                    name,
+                    imageSrc,
+                    price,
+                    salePrice,
+                    releaseDate,
+                    numOfColors
+                  }) => {
   // There are 3 variants possible, based on the props:
   //   - new-release
   //   - on-sale
@@ -26,18 +31,19 @@ const ShoeCard = ({
   // will triumph and be the variant used.
   // prettier-ignore
   const variant = typeof salePrice === 'number'
-    ? 'on-sale'
+    ? 'Sale'
     : isNewShoe(releaseDate)
-      ? 'new-release'
+      ? 'Just released!'
       : 'default'
 
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <Image alt="" src={imageSrc} />
+          <Image alt="" src={imageSrc}/>
+          {variant !== 'default' && <VariantWrapper style={{ '--bg-color': VARIANT_COLOR[variant] }}>{variant}</VariantWrapper>}
         </ImageWrapper>
-        <Spacer size={12} />
+        <Spacer size={12}/>
         <Row>
           <Name>{name}</Name>
           <Price>{formatPrice(price)}</Price>
@@ -45,6 +51,7 @@ const ShoeCard = ({
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
+
       </Wrapper>
     </Link>
   );
@@ -55,7 +62,18 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+`;
+
+const VariantWrapper = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  padding: 7px 9px;
+  background-color: var(--bg-color);
+  color: white;
+  border-radius: 2px;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
